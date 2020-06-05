@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
- #include <string.h>
+#include <string.h>
 
 int contalinhas (char s[]) {
     int  c = s[0] != '\0';

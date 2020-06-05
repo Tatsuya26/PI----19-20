@@ -167,7 +167,7 @@ int iguaisConsecutivos (char s[]) {
     if (s[0] == '\0' ) return 0;
     if (s[0] == '\n' || s[0] == '\t') return 1;
     for(i = 1; s[i] != '\0' ; i++) {
-        if ( s[i] == s[i-1]) {
+        if (s[i] == s[i-1]) {
             acc++;
             if( acc > t ) t = acc;
         }
