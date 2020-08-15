@@ -1,75 +1,100 @@
-#include <stdio.h>
-#include <ctype.h>
-#include <string.h>
+#include "ficha_4.h"
+//Ex 1
+int minusculas(char s[]) {
+    int r = 0;
+    for(int i = 0; s[i]; i++)
+        if(s[i] >= 'A' && s[i] <= 'Z') {
+            s[i] += 32; // tabela ASCII
+            r++;
+        }
+    return r;
+}
 
+//EX 2
 int contalinhas (char s[]) {
-    int  c = s[0] != '\0';
-    for (int i = 0 ; s[i] != '\0' ; i++) {
-        if (s[i] == '\n') c ++;
-    }
-    return c;
+    int r = 1;
+    for(int i = 0; s[i]; i++) 
+            if(s[i] == '\n') r++;
+    return r;
 }
 
-int minisculas (char s[]) {
-    int i, acc = 0; 
-    for (int i = 0; s[i] != '\0'; i++) { 
-        if (  s[i] >= 'A' && s[i] <= 'Z') {
-            s[i] += 32 ;
-            acc++;
-        }
-        printf("%c",s[i]); 
-}
-    return acc;
-}
-
+//Ex 3
 int contaPal (char s[]) {
-    int c = 0;
-    for (int i = 0 ; s[i] != '\0' ; i++ ) {
-        if ( isspace (s[i]) != 0) {
-            c++;    
-        } 
-    }
-    printf ("%d\n", c);
-    return c;
-}
-int procura (char *p , char *ps[], int N) {
-    int i;
-    for( i = 0 ; i < N ; i++) {
-        if (strcmp(p,ps[i])== 0){
-            return 1;
+    int pal = 0, i, isPal = 0;
+    for(i = 0; s[i]; i++) {
+        if(isspace(s[i])) {
+            if(isPal) pal++;
+            isPal = 0;
         }
+        else isPal = 1;
     }
-    return 0;
+    if(isPal) pal++;
+    return pal;
 }
 
-// Exercicio 5 
-#define MAX 100 
-typedef struct stack {
-    int sp;
-    int valores [MAX];
-} STACK ;
+//Ex 4
+int procura (char *p, char *ps[], int N) {
+    int r = 0;
+    for(int i = 0; i < N; i++) 
+        if(strcmp(p,ps[i]) == 0) r = 1;
+    return r;
+}
 
-// a) inicializa uma stack - dizer que o apontador passa zero. 
+//Ex 5
 
+//a) 
 void initStack (STACK *s) {
-    s -> sp = 0; 
+    s->sp = 0;
 }
 
-// b) teste se uma stactk é vazia - o array valores tem de ter dimensão 0. 
-
-
-// c) 
-
-int push (STACK *s , int x) {
-    if (s -> sp >= 100) return 1;
-    s -> valores[s -> sp] = x;
-    (s -> sp)++;
-    return 0;
+//b)
+int isEmptyS (STACK *s) {
+    return (s->sp == 0);
 }
 
-int main () {    
-    //contaPal (s);
-    //if ((procura (s,g,1)) == 1) printf ("Tem palavras repetidas\n" );
-    //else printf("Não tem palavras repetidas.\n");
-    return 0;
+//c)
+int push (STACK *s, int x) {
+    if(s->sp == 100) return 1;
+    else {
+        s->valores[++s->sp] = x;
+        return 0;
+    }
+}
+
+//d)
+int pop (STACK *s, int *x) {
+    if(s->sp == 0) return 1; 
+    else {
+        int temp = s->valores[s->sp--];
+        *x = temp;
+    }
+}
+
+//e)
+int top (STACK *s, int *x) {
+    int r = 1;
+    if(isEmptyS (s)) r = 1;
+    else {
+        *x = s->valores[s->sp];
+        r = 0;
+    }
+    return r;
+}
+
+STACK createSTACK() {
+    STACK *s = malloc(sizeof(struct stack));
+    int stackPointer;
+    printf("Introduza o tamanho de valores para a sua stack: \n");
+    scanf("%d", &stackPointer);
+    s->sp = stackPointer;
+    printf("Introduza %d valores para colocar na stack", stackPointer);
+    for(int i = 0; i < stackPointer; i++) {
+        printf("Valor %d: ", i+1);
+        scanf("%d", &(s->valores[i]));
+    }
+}
+
+void printSTACK(STACK *s) {
+    printf("Topo da stack: %d", s->sp);
+    for(int i = s->sp; i < 0; i--) printf("valor %d da stack: %d", i,s->valores[i]);
 }
