@@ -261,16 +261,13 @@ int contaVogais (char s[]) {
 
 //ex 22
 int contida (char a[], char b[]) {
-    int i,j, r = 1, contida = 0;
+    int i, j, contida;
     for(i = 0; a[i]; i++) {
         contida = 0;
         for(j = 0; b[j]; j++) if(b[j] == a[i]) contida = 1;
-        if(contida == 0) {
-            r = 0;
-            break;
-        }
+        if(!contida) return 0;
     }
-    return r;
+    return 1;
 }
 
 //ex 23
