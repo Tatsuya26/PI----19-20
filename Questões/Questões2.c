@@ -370,10 +370,6 @@ typedef struct nodo {
 
 
 //ex 28
-int altura (ABin a){
-    if(!a) return 0;
-	return 1 + (altura(a->dir) > altura(a->esq) ? altura(a->dir) : altura(a->esq));
-}
 
 //ex 29
 ABin cloneAB (ABin a) {

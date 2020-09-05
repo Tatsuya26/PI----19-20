@@ -101,7 +101,7 @@ int mystrcmp (char s1[], char s2[]) {
 //ex 10
 char *mystrstr (char s1[], char s2[]) {
     int inWord = 1, i = 0, j = 0;
-    char* inicio = NULL;
+    char* inicio = &s1[0];
     while(s1[i] && s2[j]) {
         if(s1[i] == s2[j]) {
             if(!inWord) {
@@ -110,17 +110,15 @@ char *mystrstr (char s1[], char s2[]) {
             } 
             j++;
         }
-        if(s1[i] != s2[j]) {
+        else {
             inWord = 0;
             j = 0;
         }
     i++;
     }
-    printf("%s\n", inicio);
     if(inWord && s2[j] == '\0') return inicio;
     else return NULL;
 }
-
 //ex 11
 void strrev (char s[]) {
     int len = 0;
